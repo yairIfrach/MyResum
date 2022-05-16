@@ -1,4 +1,2 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-Hey this is my resume site.
-Present my projects and knowledge.
+I build this project in my free time in order to develop, improve and progress all the time.
+"Be a good person and get better all the time" (Erez Auerbach)
