@@ -103,5 +103,13 @@ export const yairImgs = [
     },
 ]
 
+export const twinImg = [
+    {
+        id: 18,
+        src: '/images/tw.JPG',
+        location: '',
+        isYair: true,
+    },
+]
 
 export const allImage = (evytarImgs.concat(yairImgs)).sort(() => Math.random() - 0.5)

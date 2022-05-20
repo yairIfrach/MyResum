@@ -5,7 +5,7 @@ import {
 } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { ImageGroup, Image } from 'react-fullscreen-image'
-import { allImage, evytarImgs, exemplImgs, yairImgs } from './images';
+import { allImage, exemplImgs, twinImg } from './images';
 
 
 const _ = require('lodash');
@@ -19,9 +19,9 @@ const useStyles = makeStyles(() => createStyles({
     img: {
         width: '100%',
         height: '100%',
-    } ,
-    frame :{
-        
+    },
+    frame: {
+
     }
 }))
 
@@ -31,76 +31,62 @@ const GameLogic = (props) => {
 
     const handleCloseGame = () => handleIsDialog(false)
 
+    const gmaeDialogTitle = ['Take a good look he is Yair', 'Start playing!', 'Who is this guy?', 'You won! Well done!', 'Yair and Eviatar are not so similar. Go for a vision test']
+
+
     const [isGame, setIsGame] = useState(false)
-    const [titleMassege, setTitleMassege] = useState(false)
+    const [titleMassege, setTitleMassege] = useState(gmaeDialogTitle[0])
     const [disabledGoBack, setDisabledGoBack] = useState(true)
     const [calcScore, setCalcScore] = useState({ errorAns: 0, correctAns: 0 })
-    const [currentExemplImg, setCurrentExemplImgs] = useState(exemplImgs[0])
+    const [currentImg, setCurrentImg] = useState(exemplImgs[0])
 
-    const handleContinue = () => {
+    const handleRightButtom = () => {
+
         if (!isGame) {
             setDisabledGoBack(false)
-            _.isEqual(exemplImgs[exemplImgs.length - 2], currentExemplImg) ? setTitleMassege(true) : setTitleMassege(false);
-            if (!_.isEqual(exemplImgs[exemplImgs.length - 1], currentExemplImg)) {
-                setCurrentExemplImgs(exemplImgs[exemplImgs.findIndex(x => x.id === currentExemplImg.id) + 1])
-            } else {
-                setIsGame(true)
-                setCurrentExemplImgs(allImage[0])
-            }
+            _.isEqual(exemplImgs[exemplImgs.length - 2], currentImg) ? setTitleMassege(gmaeDialogTitle[1]) :
+                setTitleMassege(gmaeDialogTitle[2]);
+            _.isEqual(exemplImgs[exemplImgs.length - 1], currentImg) ? startGame() :
+                setCurrentImg(exemplImgs[exemplImgs.findIndex(x => x.id === currentImg.id) + 1])
         } else {
-            currentExemplImg.isYair ?
-                setCalcScore({
-                    ...calcScore,
-                    ['correctAns']: calcScore['correctAns'] + 1
-                }) :
-                setCalcScore({
-                    ...calcScore,
-                    ['errorAns']: calcScore['errorAns'] + 1
-                })
-
-            if (!_.isEqual(allImage[allImage.length - 1], currentExemplImg)) {
-
-                setCurrentExemplImgs(allImage[allImage.findIndex(x => x.id === currentExemplImg.id) + 1])
-
-            } else {
-                console.log("end")
-            }
+            currentImg.isYair ?
+                setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 }) :
+                setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 })
+            isNextNextImg()
         }
-
     }
 
-    console.log(allImage)
-
-    const handleGoBack = () => {
+    const handleLeftButton = () => {
         if (!isGame) {
-
-            setTitleMassege(false);
-            if (_.isEqual(exemplImgs[1], currentExemplImg)) {
-                setDisabledGoBack(true)
-            }
-            setCurrentExemplImgs(exemplImgs[exemplImgs.findIndex(x => x.id === currentExemplImg.id) - 1])
+            setTitleMassege(gmaeDialogTitle[0]);
+            _.isEqual(exemplImgs[1], currentImg) && setDisabledGoBack(true)
+            setCurrentImg(exemplImgs[exemplImgs.findIndex(x => x.id === currentImg.id) - 1])
         } else {
-            currentExemplImg.isYair ?
-                setCalcScore({
-                    ...calcScore,
-                    ['errorAns']: calcScore['errorAns'] + 1
-                }) :
-                setCalcScore({
-                    ...calcScore,
-                    ['correctAns']: calcScore['correctAns'] + 1
-                })
-            if (!_.isEqual(allImage[allImage.length - 1], currentExemplImg)) {
-
-
-                setCurrentExemplImgs(allImage[allImage.findIndex(x => x.id === currentExemplImg.id) + 1])
-            } else {
-                console.log("end")
-            }
+            currentImg.isYair ?
+                setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 }) :
+                setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 })
+            isNextNextImg()
         }
-
     }
 
-    console.log(calcScore)
+    const isNextNextImg = () => {
+        _.isEqual(allImage[allImage.length - 1], currentImg) ?
+            endGame() :
+            setCurrentImg(allImage[allImage.findIndex(x => x.id === currentImg.id) + 1])
+    }
+
+    const startGame = () => {
+        setIsGame(true)
+        setCurrentImg(allImage[0])
+    }
+
+    const endGame = () => {
+        calcScore.correctAns > calcScore.errorAns ? setTitleMassege(gmaeDialogTitle[3]) : setTitleMassege(gmaeDialogTitle[4])
+        setCurrentImg(twinImg[0])
+    }
+
+    const rightButtom = isGame ? 'Yair' : (titleMassege ? 'start the game' : 'Continue')
+    const leftButton = isGame ? 'Evytar' : 'Go back'
 
     return (
         <div className={classes.skills}>
@@ -113,19 +99,19 @@ const GameLogic = (props) => {
             >
                 <DialogTitle>
                     <Grid container justify="space-between" alignItems="center">
-                        <Typography variant="div">{isGame ? 'Who is this guy?' : (titleMassege ? `Start playing!` : `Take a good look he's Yair`)}</Typography>
+                        <Typography variant="div">{titleMassege}</Typography>
                         <IconButton onClick={handleCloseGame} >
                             <CloseOutlinedIcon />
                         </IconButton>
                     </Grid>
                 </DialogTitle>
                 <DialogContent className={classes.frame} >
-                    <img className={classes.img} src={currentExemplImg.src} alt={currentExemplImg.id} />
+                    <img className={classes.img} src={currentImg.src} alt={currentImg.id} />
                 </DialogContent>
                 <DialogActions >
                     <Grid container justify="space-around" alignItems="center">
-                        <Button onClick={handleGoBack} disabled={disabledGoBack}>{isGame ? 'Evytar' : 'Go back'}</Button>
-                        <Button onClick={handleContinue}> {isGame ? 'Yair' : (titleMassege ? 'start the game' : 'Continue')} </Button>
+                        <Button onClick={handleLeftButton} disabled={disabledGoBack}>{leftButton}</Button>
+                        <Button onClick={handleRightButtom}> {rightButtom} </Button>
                     </Grid>
 
                 </DialogActions>
