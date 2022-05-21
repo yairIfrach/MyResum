@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => createStyles({
     },
     frame: {
 
-    }
+     }
 }))
 
 const GameLogic = (props) => {
