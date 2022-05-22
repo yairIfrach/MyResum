@@ -1,7 +1,7 @@
 export const exemplImgs = [
     {
         id: 1,
-        src: '/images/IMG-20210910-WA0036.JPG',
+        src: '/images/45.png',
         location: '',
         isYair: true,
     },
