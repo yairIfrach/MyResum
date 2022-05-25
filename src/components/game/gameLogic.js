@@ -20,9 +20,12 @@ const useStyles = makeStyles(() => createStyles({
         width: '100%',
         height: '100%',
     },
+    buttons: {
+        borderRadius: '2'
+    },
     frame: {
 
-     }
+    }
 }))
 
 const GameLogic = (props) => {
@@ -32,15 +35,20 @@ const GameLogic = (props) => {
     const handleCloseGame = () => handleIsDialog(false)
 
     const gmaeDialogTitle = ['Take a good look he is Yair', 'Start playing!', 'Who is this guy?', 'You won! Well done!', 'Yair and Eviatar are not so similar. Go for a vision test']
+    const [titleMassege, setTitleMassege] = useState(gmaeDialogTitle[0])
+
+    const rightButtonTitle = ['Continue', 'Yair']
+    const leftButtonTitle = ['Go back', 'Evytar']
+    const [rightButton, setRigetButton] = useState(rightButtonTitle[0])
+    const [leftButton, setLeftButton] = useState(leftButtonTitle[0])
 
 
     const [isGame, setIsGame] = useState(false)
-    const [titleMassege, setTitleMassege] = useState(gmaeDialogTitle[0])
     const [disabledGoBack, setDisabledGoBack] = useState(true)
     const [calcScore, setCalcScore] = useState({ errorAns: 0, correctAns: 0 })
     const [currentImg, setCurrentImg] = useState(exemplImgs[0])
 
-    const handleRightButtom = () => {
+    const handleRightButton = () => {
 
         if (!isGame) {
             setDisabledGoBack(false)
@@ -83,10 +91,17 @@ const GameLogic = (props) => {
     const endGame = () => {
         calcScore.correctAns > calcScore.errorAns ? setTitleMassege(gmaeDialogTitle[3]) : setTitleMassege(gmaeDialogTitle[4])
         setCurrentImg(twinImg[0])
+        setRigetButton(calcScore.errorAns)
+        setLeftButton(calcScore.correctAns )
     }
 
-    const rightButtom = isGame ? 'Yair' : (titleMassege ? 'start the game' : 'Continue')
-    const leftButton = isGame ? 'Evytar' : 'Go back'
+
+    useEffect(() => {
+        if (isGame) {
+            setRigetButton(rightButtonTitle[1])
+            setLeftButton(leftButtonTitle[1])
+        }
+    }, [isGame])
 
     return (
         <div className={classes.skills}>
@@ -111,7 +126,7 @@ const GameLogic = (props) => {
                 <DialogActions >
                     <Grid container justify="space-around" alignItems="center">
                         <Button onClick={handleLeftButton} disabled={disabledGoBack}>{leftButton}</Button>
-                        <Button onClick={handleRightButtom}> {rightButtom} </Button>
+                        <Button onClick={handleRightButton}> {rightButton} </Button>
                     </Grid>
 
                 </DialogActions>
