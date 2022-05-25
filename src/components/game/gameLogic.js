@@ -98,7 +98,7 @@ const GameLogic = (props) => {
 
     useEffect(() => {
         if (isGame) {
-            setRigetButton(rightButtonTitle[1])
+            setRigetButton(rightButtonTitle[1] )
             setLeftButton(leftButtonTitle[1])
         }
     }, [isGame])
