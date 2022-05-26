@@ -85,7 +85,7 @@ const GameLogic = (props) => {
 
     const startGame = () => {
         setIsGame(true)
-        setCurrentImg(allImage[0])
+        setCurrentImg(allImage[0] )
     }
 
     const endGame = () => {
