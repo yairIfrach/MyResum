@@ -41,6 +41,7 @@ const useStyle = makeStyles(() => createStyles({
         borderTop: '100px solid #fdcb6e',
     },
     buttonPlay: {
+        textTransform: 'none',
         marginTop: '35px',
         borderRadius: '16px',
         fontSize: ' 100%',
@@ -69,7 +70,7 @@ const Header = () => {
                     This is my  <span className={classes.mainTitleColored}>Curriculum Vitae</span>
                     <span className={classes.borderStyle} />
                 </div>
-                <Button className={classes.buttonPlay} variant='contained' onClick={handleClickOpenGame}>play "Find Yair"</Button>
+                <Button className={classes.buttonPlay} variant='contained' onClick={handleClickOpenGame}>Find Yair</Button>
                 {openGame && <Game setOpenGame={setOpenGame}/>}
             </div>
             <div className={classes.arrowShape} />

@@ -13,6 +13,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-fullscreen-image": "0.0.3",
+    "react-lazy-load-image-component": "^1.5.4",
     "react-responsive-carousel": "^3.2.9",
     "react-scripts": "3.4.0",
     "react-tooltip": "^4.2.21",

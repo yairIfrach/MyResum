@@ -4,8 +4,10 @@ import {
     DialogTitle, Dialog, Button, DialogContent, DialogActions, Grid
 } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-import { ImageGroup, Image } from 'react-fullscreen-image'
+import {onStyleButton} from '../../sherd/gameStyle'
 import { allImage, exemplImgs, twinImg } from './images';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 
 const _ = require('lodash');
@@ -26,11 +28,11 @@ const useStyles = makeStyles(() => createStyles({
     frame: {
 
     }
-}))
+}), { flip: false })
 
 const GameLogic = (props) => {
     const { handleIsDialog } = props
-    const classes = useStyles()
+    const classes = {...useStyles(), ...onStyleButton()}
 
     const handleCloseGame = () => handleIsDialog(false)
 
@@ -38,8 +40,9 @@ const GameLogic = (props) => {
     const [titleMassege, setTitleMassege] = useState(gmaeDialogTitle[0])
 
     const rightButtonTitle = ['Continue', 'Yair']
-    const leftButtonTitle = ['Go back', 'Evytar']
     const [rightButton, setRigetButton] = useState(rightButtonTitle[0])
+
+    const leftButtonTitle = ['Go back', 'Evytar']
     const [leftButton, setLeftButton] = useState(leftButtonTitle[0])
 
 
@@ -60,7 +63,7 @@ const GameLogic = (props) => {
             currentImg.isYair ?
                 setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 }) :
                 setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 })
-            isNextNextImg()
+            isNextImg()
         }
     }
 
@@ -73,11 +76,11 @@ const GameLogic = (props) => {
             currentImg.isYair ?
                 setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 }) :
                 setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 })
-            isNextNextImg()
+            isNextImg()
         }
     }
 
-    const isNextNextImg = () => {
+    const isNextImg = () => {
         _.isEqual(allImage[allImage.length - 1], currentImg) ?
             endGame() :
             setCurrentImg(allImage[allImage.findIndex(x => x.id === currentImg.id) + 1])
@@ -85,20 +88,20 @@ const GameLogic = (props) => {
 
     const startGame = () => {
         setIsGame(true)
-        setCurrentImg(allImage[0] )
+        setCurrentImg(allImage[0])
     }
 
     const endGame = () => {
         calcScore.correctAns > calcScore.errorAns ? setTitleMassege(gmaeDialogTitle[3]) : setTitleMassege(gmaeDialogTitle[4])
         setCurrentImg(twinImg[0])
-        setRigetButton(calcScore.errorAns)
-        setLeftButton(calcScore.correctAns )
+        setRigetButton(`${calcScore.errorAns} wrong answers`)
+        setLeftButton(`${calcScore.correctAns} correct answers`)
     }
 
 
     useEffect(() => {
         if (isGame) {
-            setRigetButton(rightButtonTitle[1] )
+            setRigetButton(rightButtonTitle[1])
             setLeftButton(leftButtonTitle[1])
         }
     }, [isGame])
@@ -121,14 +124,14 @@ const GameLogic = (props) => {
                     </Grid>
                 </DialogTitle>
                 <DialogContent className={classes.frame} >
-                    <img className={classes.img} src={currentImg.src} alt={currentImg.id} />
+                    <LazyLoadImage className={classes.img} src={currentImg.src} alt={currentImg.id} effect="blur"/>
                 </DialogContent>
                 <DialogActions >
                     <Grid container justify="space-around" alignItems="center">
-                        <Button onClick={handleLeftButton} disabled={disabledGoBack}>{leftButton}</Button>
-                        <Button onClick={handleRightButton}> {rightButton} </Button>
+                        <Button className={classes.leftButton} onClick={handleLeftButton} disabled={disabledGoBack}>{leftButton}</Button>
+                        <Button className={classes.righetButton} onClick={handleRightButton}> {rightButton} </Button>
                     </Grid>
-
+                    
                 </DialogActions >
 
             </Dialog>
