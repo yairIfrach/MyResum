@@ -129,7 +129,7 @@ const GameLogic = (props) => {
                         <Button onClick={handleRightButton}> {rightButton} </Button>
                     </Grid>
 
-                </DialogActions>
+                </DialogActions >
 
             </Dialog>
         </div>
