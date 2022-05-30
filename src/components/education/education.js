@@ -125,7 +125,7 @@ const Education = () => {
 
     const certTitle = <span className={classes.crtTitle}>Certificates</span>
     const certItemsComp = certificatesItems.map((item, index) =>
-        <ListItem className={classes.certDescription}>
+        <ListItem className={classes.certDescription} key={index}>
             <ListItemText 
                 primary={
                     <div key={index}>{item.title} | {item.org} ({item.date})</div>

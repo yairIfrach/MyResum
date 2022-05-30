@@ -20,16 +20,7 @@ const useStyles = makeStyles(() => createStyles({
         listStyleType: 'circle',
     },
 }))
-const images = [
-    {
-        id: 1,
-        url: "/images/language.png"
-    },
-    {
-        id: 2,
-        url: "/images/actuar.png"
-    }
-]
+
 const Lang = () => {
     const classes = useStyles()
     return (

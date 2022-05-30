@@ -1,10 +1,6 @@
-import React, { useState, forwardRef } from 'react';
-import {
-    Slide, createStyles, makeStyles, Typography, IconButton,
-    DialogTitle, Dialog, Button, DialogContent, DialogActions, Grid
-} from '@material-ui/core';
-import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
-import {onStyleButton} from '../../sherd/gameStyle'
+import React, { forwardRef } from 'react';
+import { Slide, DialogTitle, Dialog, Button, DialogContent, DialogActions } from '@material-ui/core';
+import { onStyleButton } from '../../sherd/gameStyle'
 
 
 
@@ -35,7 +31,7 @@ const Intro = (props) => {
                 onClose={handleCloseGame}
             >
                 <DialogTitle id="alert-dialog-title">
-                    <Typography variant="div">Yair has a twin! Try to identify in the picture who is Yair and who is his twin ...</Typography>
+                    <span variant="div">Yair has a twin! Try to identify in the picture who is Yair and who is his twin ...</span>
                 </DialogTitle>
                 <DialogContent>
                     Initially, two photos of Yair will be shown. Try to remember well!

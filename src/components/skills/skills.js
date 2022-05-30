@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Chip, createStyles, makeStyles } from '@material-ui/core';
-
-import { DialogTitle, Dialog, Button, DialogContent, DialogActions, DialogContentText } from '@material-ui/core';
-
+import { DialogTitle, Dialog, Button, DialogContent, DialogActions } from '@material-ui/core';
 
 const useStyles = makeStyles(() => createStyles({
     skills: {
@@ -17,6 +15,7 @@ const useStyles = makeStyles(() => createStyles({
         textDecoration: 'underline',
         fontWeight: 'bold',
         fontSize: '23px',
+        marginTop: '11px',
     },
     image: {
         marginLeft: '-10px',
@@ -70,10 +69,10 @@ const Skills = () => {
 
     return (
         <div className={classes.skills}>
-            <p className={classes.objective}>
+            <span className={classes.objective}>
                 Software engineer with 4 years of experience,<br />
                 eager to learn more technologies and become a better developer.
-            </p>
+            </span>
             <div className={classes.title}>
                 <img className={classes.image} src="/images/skills.png" alt="skills" />
                 Skills
