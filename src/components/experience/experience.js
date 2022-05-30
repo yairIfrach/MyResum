@@ -81,7 +81,7 @@ const Experience = () => {
             <ListItemText
                 primary={
                     <div className={classes.expTitle}>
-                        <img className={classes.icon} src={item.icon}></img>
+                        <img className={classes.icon} alt={item.title} src={item.icon}></img>
                         <span className={classes.primeryColor}>{item.title} | </span>
                         <span className={classes.seconderyColor}>{item.organization}</span>
                     </div>}

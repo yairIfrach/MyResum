@@ -25,7 +25,7 @@ const StaticProfile = (props) => {
     return (
         <span className={classes.staticProfile} title={props.title}>
             <img className={classes.image} src={props.imgSource} alt={props.title} />
-            <p className={classes.names}>{props.name}</p>
+            <span className={classes.names}>{props.name}</span>
         </span>
     );
 }

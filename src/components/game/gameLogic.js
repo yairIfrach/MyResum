@@ -1,7 +1,7 @@
-import React, { useState, forwardRef, useEffect } from 'react';
+import React, { useState, forwardRef } from 'react';
 import {
-    Slide, createStyles, makeStyles, Typography, IconButton,
-    DialogTitle, Dialog, Button, DialogContent, DialogActions, Grid, Chip
+    Slide, createStyles, makeStyles, IconButton,
+    DialogTitle, Dialog, Button, DialogContent, DialogActions, Grid
 } from '@material-ui/core';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
 import { onStyleButton } from '../../sherd/gameStyle'
@@ -13,7 +13,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 const _ = require('lodash');
 
 
-const Transition = forwardRef(function Transition(props, ref) {
+const Transition = forwardRef((props, ref) => {
     return <Slide direction="left" easing="20" timeout='30s' ref={ref} {...props} />;
 });
 
@@ -54,15 +54,15 @@ const GameLogic = (props) => {
     const handleRightButton = () => {
 
         if (!isGame) {
-            setDisabledButton({ ...disabledButton, ['leftButton']: false })
+            setDisabledButton({ ...disabledButton, 'leftButton': false })
             _.isEqual(exemplImgs[exemplImgs.length - 2], currentImg) ? setTitleMassege(gmaeDialogTitle[1]) :
                 setTitleMassege(gmaeDialogTitle[2]);
             _.isEqual(exemplImgs[exemplImgs.length - 1], currentImg) ? startGame() :
                 setCurrentImg(exemplImgs[exemplImgs.findIndex(x => x.id === currentImg.id) + 1])
         } else {
             currentImg.isYair ?
-                setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 }) :
-                setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 })
+                setCalcScore({ ...calcScore, 'correctAns': calcScore['correctAns'] + 1 }) :
+                setCalcScore({ ...calcScore, 'errorAns': calcScore['errorAns'] + 1 })
             isNextImg()
         }
     }
@@ -70,12 +70,12 @@ const GameLogic = (props) => {
     const handleLeftButton = () => {
         if (!isGame) {
             setTitleMassege(gmaeDialogTitle[0]);
-            _.isEqual(exemplImgs[1], currentImg) && setDisabledButton({ ...disabledButton, ['leftButton']: true })
+            _.isEqual(exemplImgs[1], currentImg) && setDisabledButton({ ...disabledButton, 'leftButton': true })
             setCurrentImg(exemplImgs[exemplImgs.findIndex(x => x.id === currentImg.id) - 1])
         } else {
             currentImg.isYair ?
-                setCalcScore({ ...calcScore, ['errorAns']: calcScore['errorAns'] + 1 }) :
-                setCalcScore({ ...calcScore, ['correctAns']: calcScore['correctAns'] + 1 })
+                setCalcScore({ ...calcScore, 'errorAns': calcScore['errorAns'] + 1 }) :
+                setCalcScore({ ...calcScore, 'correctAns': calcScore['correctAns'] + 1 })
             isNextImg()
         }
     }
@@ -83,6 +83,8 @@ const GameLogic = (props) => {
     const startGame = () => {
         setIsGame(true)
         setCurrentImg(allImage[0])
+        setRigetButton(rightButtonTitle[1])
+        setLeftButton(leftButtonTitle[1])
     }
 
     const isNextImg = () => {
@@ -96,16 +98,8 @@ const GameLogic = (props) => {
         setCurrentImg(twinImg[0])
         setRigetButton(`${calcScore.correctAns} correct answers`)
         setLeftButton(`${calcScore.errorAns} wrong answers`)
-        setDisabledButton({ ...disabledButton, ['leftButton']: true, ['righetButton']: true })
+        setDisabledButton({ ...disabledButton, 'leftButton': true, 'righetButton': true })
     }
-
-
-    useEffect(() => {
-        if (isGame) {
-            setRigetButton(rightButtonTitle[1])
-            setLeftButton(leftButtonTitle[1])
-        }
-    }, [isGame])
 
     return (
         <div className={classes.skills}>
@@ -117,8 +111,8 @@ const GameLogic = (props) => {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle>
-                    <Grid container justify="space-between" alignItems="center">
-                        <Typography variant="div">{titleMassege}</Typography>
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        <span variant="div">{titleMassege}</span>
                         <IconButton onClick={handleCloseGame} >
                             <CloseOutlinedIcon />
                         </IconButton>
@@ -128,7 +122,7 @@ const GameLogic = (props) => {
                     <LazyLoadImage className={classes.img} src={currentImg.src} alt={currentImg.id} effect="blur" />
                 </DialogContent>
                 <DialogActions >
-                    <Grid container justify="space-around" alignItems="center">
+                    <Grid container justifyContent="space-around" alignItems="center">
                         <Button className={classes.leftButton} onClick={handleLeftButton} disabled={disabledButton.leftButton}>{leftButton}</Button>
                         <Button className={classes.righetButton} onClick={handleRightButton} disabled={disabledButton.righetButton}> {rightButton} </Button>
                     </Grid>
