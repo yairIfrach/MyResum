@@ -32,7 +32,7 @@ const About = () => {
             </div>
             <div className={classes.aboutLinked}>
                 <LinkedProfile link="https://www.linkedin.com/in/yair-ifrach-877372106/" imgSource="/images/linkedin.png" title="LinkedIn" />
-                <LinkedProfile link="mnmn" imgSource="/images/imagePdf.png" title="Downold C.V." />
+                <LinkedProfile link="https://drive.google.com/file/d/11ViPyF3xV4qhvfvnRTuUu6z-JSn4Hpzu/view?usp=sharing" imgSource="/images/imagePdf.png" title="Downold C.V." />
                 <LinkedProfile link="https://github.com/yairIfrach" imgSource="/images/github.png" title="GitHub" />
             </div>
         </div>
