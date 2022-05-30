@@ -34,6 +34,7 @@ const About = () => {
                 <LinkedProfile link="https://www.linkedin.com/in/yair-ifrach-877372106/" imgSource="/images/linkedin.png" title="LinkedIn" />
                 <LinkedProfile link="https://drive.google.com/file/d/11ViPyF3xV4qhvfvnRTuUu6z-JSn4Hpzu/view?usp=sharing" imgSource="/images/imagePdf.png" title="Downold C.V." />
                 <LinkedProfile link="https://github.com/yairIfrach" imgSource="/images/github.png" title="GitHub" />
+                <LinkedProfile link="https://wa.me/972558856756" imgSource="/images/whatsapp.png" title="Whatsapp"/>
             </div>
         </div>
     );
