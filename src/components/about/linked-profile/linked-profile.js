@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => createStyles({
 const LinkedProfile = (props) => {
     const classes = useStyles()
     return (
-        <a href={props.link} target="_blank" rel="noopener noreferrer">
+        <a href={props.link} target="_blank" rel="noopener noreferrer" >
             <div className={classes.LinkedProfile} title={props.title} >
                 <img className={classes.image} src={props.imgSource} alt={props.title} />
             </div>
